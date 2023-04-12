@@ -16,7 +16,6 @@ class GameScene: SKScene {
         let displaySize: CGRect = UIScreen.main.bounds
         let displayWidth = Int(displaySize.width/2)
         let displayHeight = Int(displaySize.height/2)
-        
         return CGPoint(x: Double(Int.random(in: -displayWidth..<displayWidth)), y: Double(Int.random(in: -displayHeight..<displayHeight)))
     }
     
