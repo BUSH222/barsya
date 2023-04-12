@@ -10,7 +10,7 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    let circle1 = SKShapeNode(circleOfRadius: 30)
+    let circle1 = SKShapeNode(circleOfRadius: 45)
     
     func getrandompoint() -> CGPoint {
         let displaySize: CGRect = UIScreen.main.bounds
@@ -44,10 +44,26 @@ class GameScene: SKScene {
     
     func recursive(){
 
-        let recursive = SKAction.sequence([SKAction.move(to: getrandompoint(), duration: 1)])
+        let recursive = SKAction.sequence([SKAction.move(to: getrandompoint(), duration: 2)])
         circle1.run(recursive, completion: {self.recursive()})
         }
-
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            let location = t.location(in: self)
+            let touchedNode = atPoint(location)
+            if touchedNode === circle1 {
+                circle1.removeAllActions()
+                let wait1 = SKAction.wait(forDuration: 1)
+                let action2 = SKAction.move(to: getrandompoint(), duration: 0)
+                let wait2 = SKAction.wait(forDuration: 0.2)
+                circle1.run(SKAction.sequence([wait1, action2, wait2]), completion: {self.recursive()})
+                
+            }
+            
+        }
+    }
     
     
     override func update(_ currentTime: TimeInterval) {
